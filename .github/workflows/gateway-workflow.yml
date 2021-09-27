@@ -1,0 +1,34 @@
+name: Gateway workflow
+
+on: ['push', 'pull_request']
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: |
+          yarn --frozen-lockfile
+
+      - name: Lint files
+        run: |
+          yarn lint
+
+      - name: Run all tests
+        env:
+          COGNITO_AUTHORIZATION: ${{ secrets.COGNITO_AUTHORIZATION }}
+          COGNITO_URL: ${{ secrets.COGNITO_URL }}
+        run: |
+          yarn test

@@ -25,6 +25,10 @@ functions:
       - http:
           method: GET
           path: /hello
+          authorizer:
+            arn: ${self:custom.Cognito.arn}
+            scopes:
+              - ${self:custom.Cognito.scopes}
 
   searchproducts:
     handler: dist/src/handlers/index.searchproducts
