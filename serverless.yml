@@ -1,0 +1,58 @@
+service: gateway
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: '20201221'
+  memorySize: 256
+  region: us-east-1
+  apiGateway:
+    shouldStartNameWithService: true
+  stage: local
+  environment:
+    REDIS_PORT: ${self:custom.Redis.port}
+    REDIS_HOST: ${self:custom.Redis.host}
+    REDIS_PASSWORD: ${self:custom.Redis.password}
+    COGNITO_AUTHORIZATION: ${self:custom.Cognito.authorization}
+    COGNITO_URL: ${self:custom.Cognito.url}
+    SHOPEE_URL: ${self:custom.Shopee.url}
+    MELI_URL: ${self:custom.Meli.url}
+  
+functions:
+  hello:
+    handler: dist/src/handlers/index.hello
+    events:
+      - http:
+          method: GET
+          path: /hello
+
+  searchproducts:
+    handler: dist/src/handlers/index.searchproducts
+    events:
+      - http:
+          method: GET
+          path: /products
+          request:
+            parameters:
+              querystrings:
+                product: true
+
+custom:
+  bundle:
+    linting: false
+  Cognito:
+    arn: ${file(env.${self:provider.stage}.yml):Cognito.arn}
+    scopes: ${file(env.${self:provider.stage}.yml):Cognito.scopes}
+    url: ${file(env.${self:provider.stage}.yml):Cognito.url}
+    authorization: ${file(env.${self:provider.stage}.yml):Cognito.authorization}
+  Redis:
+    port: ${file(env.${self:provider.stage}.yml):Redis.port}
+    host: ${file(env.${self:provider.stage}.yml):Redis.host}
+    password: ${file(env.${self:provider.stage}.yml):Redis.password}
+  Shopee:
+    url: ${file(env.${self:provider.stage}.yml):Shopee.url}
+  Meli:
+    url: ${file(env.${self:provider.stage}.yml):Meli.url}
+
+plugins:
+  - serverless-offline

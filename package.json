@@ -1,0 +1,48 @@
+{
+  "name": "gateway",
+  "version": "1.1.0",
+  "description": "Serverless Application",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "deploy": "yarn build && sls deploy -v",
+    "dev": "yarn build && sls offline start",
+    "start": "sls offline start",
+    "lint": "eslint --fix 'src/**/*.ts' && eslint --fix 'test/**/*.ts'",
+    "test": "jest --runInBand",
+    "test:unit": "npm test -- --watch -c jest-unit.config.js",
+    "test:integration": "npm test -- --watch -c jest-integration.config.js",
+    "test:ci": "npm test -- --coverage"
+  },
+  "keywords": [
+    "Serverless Application"
+  ],
+  "author": "viniciusmotta8@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.77",
+    "@types/ioredis": "^4.26.6",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.12.5",
+    "@types/validator": "^13.6.3",
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
+    "eslint": "^7.29.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "jest": "^27.0.6",
+    "serverless": "^2.51.2",
+    "serverless-offline": "^7.0.0",
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.4"
+  },
+  "dependencies": {
+    "@vmotta8/price-comparison": "^1.0.6",
+    "aws-lambda": "^1.0.6",
+    "axios": "^0.21.1",
+    "ioredis": "^4.27.6",
+    "validator": "^13.6.0"
+  }
+}
