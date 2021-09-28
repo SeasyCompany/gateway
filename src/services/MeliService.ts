@@ -1,6 +1,7 @@
 import axios from 'axios'
+import qs from 'querystring'
 import { errorHandler } from '@vmotta8/price-comparison'
-import { IProduct } from '../dtos/IProduct'
+import { IProduct } from '../dtos'
 
 export const MeliService = {
   async searchProducts (product: string, token: string): Promise<IProduct[]> {
@@ -12,7 +13,7 @@ export const MeliService = {
 
     try {
       const response = await axios.get<IProduct[]>(
-        `${meliUrl}/products?product=${product}`,
+        `${meliUrl}/products?${qs.stringify({product})}`,
         { headers }
       )
 

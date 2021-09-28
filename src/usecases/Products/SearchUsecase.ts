@@ -1,8 +1,8 @@
 import { TokenService, ShopeeService, MeliService } from '../../services'
 import { mergeProducts } from '../../helpers/mergeProducts'
 import { ICacheProvider } from '../../providers/ICacheProvider'
-import { IProduct } from '../../dtos/IProduct'
-import { sortProductsByPrice } from '@vmotta8/price-comparison'
+import { IProduct } from '../../dtos'
+import { sortProductsByPrice, formatString } from '@vmotta8/price-comparison'
 
 interface Payload {
   product: string;
@@ -15,7 +15,7 @@ export class SearchUsecase {
   async execute (queryStringParameters: Payload): Promise<IProduct[]> {
     const { product } = queryStringParameters
 
-    const cacheProductName = product.replace(/[^a-z0-9]/gi, '')
+    const cacheProductName = formatString(product).replace(/ /g, '')
     const cacheProducts = await this.cache.get(`products:${cacheProductName}`)
 
     if (cacheProducts) {

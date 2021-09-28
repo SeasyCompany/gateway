@@ -1,4 +1,4 @@
-import { IProduct } from '../../src/dtos/IProduct'
+import { IProduct } from '../../src/dtos'
 
 export const allProducts: IProduct[] = [
   {
@@ -6,14 +6,28 @@ export const allProducts: IProduct[] = [
     price: 10,
     marketplace: 'marketplace',
     location: 'City',
-    image: 'https://marketplate.com/product-1.png'
+    image: 'https://marketplate.com/product-1.png',
+    title: 'product',
+    variations: [
+      {
+        name: 'variation',
+        options: ['option']
+      }
+    ]
   },
   {
     url: 'https://marketplate.com/product-2',
     price: 20,
     marketplace: 'marketplace',
     location: 'City',
-    image: 'https://marketplate.com/product-2.png'
+    image: 'https://marketplate.com/product-2.png',
+    title: 'product',
+    variations: [
+      {
+        name: 'variation',
+        options: ['option']
+      }
+    ]
 
   },
   {
@@ -21,20 +35,41 @@ export const allProducts: IProduct[] = [
     price: 30,
     marketplace: 'marketplace',
     location: 'City',
-    image: 'https://marketplate.com/product-3.png'
+    image: 'https://marketplate.com/product-3.png',
+    title: 'product',
+    variations: [
+      {
+        name: 'variation',
+        options: ['option']
+      }
+    ]
   },
   {
     url: 'https://marketplate.com/product-4',
     price: 40,
     marketplace: 'marketplace',
     location: 'City',
-    image: 'https://marketplate.com/product-4.png'
+    image: 'https://marketplate.com/product-4.png',
+    title: 'product',
+    variations: [
+      {
+        name: 'variation',
+        options: ['option']
+      }
+    ]
   },
   {
     url: 'https://marketplate.com/product-5',
     price: 5,
     marketplace: 'marketplace',
     location: 'City',
-    image: 'https://marketplate.com/product-5.png'
+    image: 'https://marketplate.com/product-5.png',
+    title: 'product',
+    variations: [
+      {
+        name: 'variation',
+        options: ['option']
+      }
+    ]
   }
 ]
