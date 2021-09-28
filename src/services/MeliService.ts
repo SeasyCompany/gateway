@@ -13,7 +13,7 @@ export const MeliService = {
 
     try {
       const response = await axios.get<IProduct[]>(
-        `${meliUrl}/products?${qs.stringify({product})}`,
+        `${meliUrl}/products?${qs.stringify({ product })}`,
         { headers }
       )
 

@@ -13,7 +13,7 @@ export const ShopeeService = {
 
     try {
       const response = await axios.get<IProduct[]>(
-        `${shopeeUrl}/products?${qs.stringify({product})}`,
+        `${shopeeUrl}/products?${qs.stringify({ product })}`,
         { headers }
       )
 

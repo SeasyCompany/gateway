@@ -1,5 +1,5 @@
 import { TokenService, ShopeeService, MeliService } from '../../services'
-import { mergeProducts } from '../../helpers/mergeProducts'
+import { mergeProducts } from '../../helpers'
 import { ICacheProvider } from '../../providers/ICacheProvider'
 import { IProduct } from '../../dtos'
 import { sortProductsByPrice, formatString } from '@vmotta8/price-comparison'

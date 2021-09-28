@@ -1,5 +1,5 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda'
-import { HelloUsecase } from '../usecases/HelloUsecase'
+import { HelloUsecase } from '../usecases'
 import { errorHandler } from '@vmotta8/price-comparison'
 
 export async function handler (event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {

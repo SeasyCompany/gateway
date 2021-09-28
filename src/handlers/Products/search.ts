@@ -1,8 +1,8 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda'
 import { errorHandler } from '@vmotta8/price-comparison'
-import { SearchUsecase } from '../../usecases/Products/SearchUsecase'
-import { searchValidator } from '../../validators/Products/searchValidator'
-import { cache } from '../index'
+import { SearchUsecase } from '../../usecases'
+import { searchValidator } from '../../validators'
+import { cache } from '..'
 
 export async function handler (event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
   try {
