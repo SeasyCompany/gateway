@@ -10,6 +10,7 @@ provider:
     shouldStartNameWithService: true
   stage: local
   environment:
+    NODE_ENV: local
     REDIS_PORT: ${self:custom.Redis.port}
     REDIS_HOST: ${self:custom.Redis.host}
     REDIS_PASSWORD: ${self:custom.Redis.password}
@@ -42,6 +43,10 @@ functions:
                 product: true
 
 custom:
+  serverless-offline:
+    httpPort: 3000
+    websocketPort: 3001
+    lambdaPort: 3002
   bundle:
     linting: false
   Cognito:

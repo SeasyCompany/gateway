@@ -10,6 +10,15 @@ interface TokenResponse {
 
 export const TokenService = {
   async generate (cache: ICacheProvider): Promise<TokenResponse> {
+    // locally the token is not needed
+    if (process.env.NODE_ENV === 'local') {
+      return {
+        access_token: 'string',
+        expires_in: 3600,
+        token_type: 'string'
+      }
+    }
+
     // try to collect the token in the cache
     try {
       const tokenObj = await cache.get('token:access_token')

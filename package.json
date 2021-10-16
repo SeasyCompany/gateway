@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf dist && tsc",
-    "deploy": "yarn build && sls deploy -v",
     "dev": "yarn build && sls offline start",
     "start": "sls offline start",
     "lint": "eslint --fix 'src/**/*.ts' && eslint --fix 'test/**/*.ts'",
