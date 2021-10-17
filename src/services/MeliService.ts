@@ -18,8 +18,9 @@ export const MeliService = {
       )
 
       return response.data
-    } catch (error) {
-      console.log(errorHandler.format(error))
+    } catch (e) {
+      const error = errorHandler.generate(3003, e)
+      console.log(error.message)
       return []
     }
   }

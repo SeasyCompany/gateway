@@ -41,17 +41,17 @@ export const TokenService = {
       Authorization: authorization
     }
 
-    const response = await axios.post<TokenResponse>(
-      url, {}, { headers }
-    )
+    try {
+      const response = await axios.post<TokenResponse>(
+        url, {}, { headers }
+      )
 
-    if (!response.data) {
-      throw errorHandler.generate(3001)
+      // add the token to the cache
+      await cache.set('token:access_token', JSON.stringify(response.data), 600)
+
+      return response.data
+    } catch (e) {
+      throw errorHandler.generate(3001, e)
     }
-
-    // add the token to the cache
-    await cache.set('token:access_token', JSON.stringify(response.data), 600)
-
-    return response.data
   }
 }
