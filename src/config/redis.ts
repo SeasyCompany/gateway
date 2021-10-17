@@ -4,7 +4,7 @@ let logRetry = true
 const enableLogRetry = () => {
   setTimeout(() => {
     logRetry = true
-  }, 30 * 1000)
+  }, 60 * 1000)
 }
 
 export const client = new Redis({

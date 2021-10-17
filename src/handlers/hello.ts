@@ -14,7 +14,9 @@ export async function handler (event: APIGatewayProxyEvent, context: Context): P
       })
     }
     return response
-  } catch (error) {
-    return errorHandler.format(error)
+  } catch (e) {
+    const error = errorHandler.format(e)
+    console.log(error)
+    return error
   }
 }

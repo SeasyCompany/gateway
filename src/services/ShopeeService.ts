@@ -19,7 +19,7 @@ export const ShopeeService = {
 
       return response.data
     } catch (error) {
-      errorHandler.format(error)
+      console.log(errorHandler.format(error))
       return []
     }
   }

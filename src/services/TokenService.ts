@@ -26,7 +26,7 @@ export const TokenService = {
         return JSON.parse(tokenObj)
       }
     } catch (error) {
-      console.log(error)
+      console.log(errorHandler.format(error))
     }
 
     const url = process.env.COGNITO_URL || ''
@@ -41,21 +41,17 @@ export const TokenService = {
       Authorization: authorization
     }
 
-    try {
-      const response = await axios.post<TokenResponse>(
-        url, {}, { headers }
-      )
+    const response = await axios.post<TokenResponse>(
+      url, {}, { headers }
+    )
 
-      if (!response.data) {
-        throw errorHandler.generate(3001)
-      }
-
-      // add the token to the cache
-      await cache.set('token:access_token', JSON.stringify(response.data), 600)
-
-      return response.data
-    } catch {
+    if (!response.data) {
       throw errorHandler.generate(3001)
     }
+
+    // add the token to the cache
+    await cache.set('token:access_token', JSON.stringify(response.data), 600)
+
+    return response.data
   }
 }
