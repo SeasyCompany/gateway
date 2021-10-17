@@ -10,7 +10,7 @@ provider:
     shouldStartNameWithService: true
   stage: local
   environment:
-    NODE_ENV: local
+    NODE_ENV: ${self:provider.stage}
     REDIS_PORT: ${self:custom.Redis.port}
     REDIS_HOST: ${self:custom.Redis.host}
     REDIS_PASSWORD: ${self:custom.Redis.password}
