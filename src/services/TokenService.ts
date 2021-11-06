@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { errorHandler } from '@vmotta8/price-comparison'
+import { errorHandler } from '@seasy/package'
 import { ICacheProvider } from '../providers/ICacheProvider'
 
 interface TokenResponse {
@@ -25,7 +25,7 @@ export const TokenService = {
       if (tokenObj) {
         return JSON.parse(tokenObj)
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(errorHandler.format(error))
     }
 
@@ -50,7 +50,7 @@ export const TokenService = {
       await cache.set('token:access_token', JSON.stringify(response.data), 600)
 
       return response.data
-    } catch (e) {
+    } catch (e: any) {
       throw errorHandler.generate(3001, e)
     }
   }

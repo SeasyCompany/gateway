@@ -1,4 +1,4 @@
-import { errorHandler } from '@vmotta8/price-comparison'
+import { errorHandler } from '@seasy/package'
 import validator from 'validator'
 
 export const searchValidator = (queryStringParameters: any) => {

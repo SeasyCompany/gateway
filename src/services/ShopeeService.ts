@@ -1,6 +1,6 @@
 import axios from 'axios'
 import qs from 'querystring'
-import { errorHandler } from '@vmotta8/price-comparison'
+import { errorHandler } from '@seasy/package'
 import { IProduct } from '../dtos'
 
 export const ShopeeService = {
@@ -18,7 +18,7 @@ export const ShopeeService = {
       )
 
       return response.data
-    } catch (e) {
+    } catch (e: any) {
       const error = errorHandler.generate(3002, e)
       console.log(error.message)
       return []

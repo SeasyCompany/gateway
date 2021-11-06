@@ -5,7 +5,7 @@ describe('search validator', () => {
     try {
       searchValidator({ product: '' })
       expect(true).toEqual(false)
-    } catch (error) {
+    } catch (error: any) {
       const parsedError = JSON.parse(error.message)
       expect(parsedError.statusCode).toEqual(422)
     }
@@ -15,7 +15,7 @@ describe('search validator', () => {
     try {
       searchValidator({ product: '      ' })
       expect(true).toEqual(false)
-    } catch (error) {
+    } catch (error: any) {
       const parsedError = JSON.parse(error.message)
       expect(parsedError.statusCode).toEqual(422)
     }
@@ -25,7 +25,7 @@ describe('search validator', () => {
     try {
       searchValidator({ product: null })
       expect(true).toEqual(false)
-    } catch (error) {
+    } catch (error: any) {
       const parsedError = JSON.parse(error.message)
       expect(parsedError.statusCode).toEqual(422)
     }
@@ -35,7 +35,7 @@ describe('search validator', () => {
     try {
       searchValidator({ product: undefined })
       expect(true).toEqual(false)
-    } catch (error) {
+    } catch (error: any) {
       const parsedError = JSON.parse(error.message)
       expect(parsedError.statusCode).toEqual(422)
     }
