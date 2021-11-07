@@ -1,5 +1,5 @@
 Read documentation
-https://app.swaggerhub.com/apis-docs/vmotta8/PriceComparisonGateway/1.0.0
+https://app.swaggerhub.com/apis-docs/SeasyCompany/SeasyApi
 
 Edit documentation
-https://app.swaggerhub.com/apis/vmotta8/PriceComparisonGateway/1.0.0
+https://app.swaggerhub.com/apis/SeasyCompany/SeasyApi

@@ -5,7 +5,7 @@ git fetch
 git pull origin development
 yarn build
 yq eval -i '.provider.stage = "dev"' serverless.yml
-sls deploy -v
+sls deploy --verbose
 git checkout .
 
 cd ../shopee
@@ -14,7 +14,7 @@ git fetch
 git pull origin development
 yarn build
 yq eval -i '.provider.stage = "dev"' serverless.yml
-sls deploy -v
+sls deploy --verbose
 git checkout .
 
 cd ../meli
@@ -23,5 +23,5 @@ git fetch
 git pull origin development
 yarn build
 yq eval -i '.provider.stage = "dev"' serverless.yml
-sls deploy -v
+sls deploy --verbose
 git checkout .
