@@ -41,6 +41,10 @@ functions:
             parameters:
               querystrings:
                 product: true
+          authorizer:
+            arn: ${self:custom.Cognito.arn}
+            scopes:
+              - ${self:custom.Cognito.scopes}
 
 custom:
   serverless-offline:
