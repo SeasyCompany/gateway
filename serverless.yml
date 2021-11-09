@@ -26,10 +26,11 @@ functions:
       - http:
           method: GET
           path: /hello
-          authorizer:
-            arn: ${self:custom.Cognito.arn}
-            scopes:
-              - ${self:custom.Cognito.scopes}
+          cors: true
+          # authorizer:
+          #   arn: ${self:custom.Cognito.arn}
+          #   scopes:
+          #     - ${self:custom.Cognito.scopes}
 
   searchproducts:
     handler: dist/src/handlers/index.searchproducts
@@ -41,10 +42,11 @@ functions:
             parameters:
               querystrings:
                 product: true
-          authorizer:
-            arn: ${self:custom.Cognito.arn}
-            scopes:
-              - ${self:custom.Cognito.scopes}
+          cors: true
+          # authorizer:
+          #   arn: ${self:custom.Cognito.arn}
+          #   scopes:
+          #     - ${self:custom.Cognito.scopes}
 
 custom:
   serverless-offline:

@@ -12,6 +12,10 @@ export async function handler (event: APIGatewayProxyEvent, context: Context): P
     const result = await usecase.execute(payload)
     return {
       statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true
+      },
       body: JSON.stringify(result)
     }
   } catch (e: any) {
