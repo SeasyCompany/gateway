@@ -1,10 +1,9 @@
 name: Gateway workflow
 
-on: ['push', 'pull_request']
+on: ['push']
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -27,8 +26,60 @@ jobs:
           yarn lint
 
       - name: Run all tests
-        env:
-          COGNITO_AUTHORIZATION: ${{ secrets.COGNITO_AUTHORIZATION }}
-          COGNITO_URL: ${{ secrets.COGNITO_URL }}
         run: |
           yarn test
+  
+  deploy:
+    if: github.ref == 'refs/heads/development'
+    environment: dev
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install development dependencies
+        run: |
+          yarn install:development
+
+      - name: Build application
+        run: |
+          yarn build
+
+      - name: Remove local plugins
+        run: |
+          yq eval -i 'del(.plugins)' serverless.yml
+
+      - name: Install production dependencies
+        run: |
+          yarn install:production
+
+      - name: Create env file
+        run: |
+          touch .env
+          echo NODE_ENV=${{secrets.NODE_ENV}} >> .env
+          echo COGNITO_ARN=${{secrets.COGNITO_ARN}} >> .env
+          echo COGNITO_SCOPES=${{secrets.COGNITO_SCOPES}} >> .env
+          echo COGNITO_AUTHORIZATION=${{secrets.COGNITO_AUTHORIZATION}} >> .env
+          echo COGNITO_URL=${{secrets.COGNITO_URL}} >> .env
+          echo REDIS_PORT=${{secrets.REDIS_PORT}} >> .env
+          echo REDIS_HOST=${{secrets.REDIS_HOST}} >> .env
+          echo REDIS_PASSWORD=${{secrets.REDIS_PASSWORD}} >> .env
+          echo SHOPEE_SERVICE_URL=${{secrets.SHOPEE_SERVICE_URL}} >> .env
+          echo MELI_SERVICE_URL=${{secrets.MELI_SERVICE_URL}} >> .env
+
+      - name: Serverless deploy
+        uses: serverless/github-action@v2
+        with:
+          args: deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

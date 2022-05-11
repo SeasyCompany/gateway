@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf dist && tsc",
+    "install:development": "yarn --frozen-lockfile",
+    "install:production": "rimraf node_modules && yarn --production --frozen-lockfile",
     "dev": "yarn build && sls offline start",
     "start": "sls offline start",
     "lint": "eslint --fix 'src/**/*.ts' && eslint --fix 'test/**/*.ts'",
@@ -38,7 +40,8 @@
     "serverless": "^2.51.2",
     "serverless-offline": "^7.0.0",
     "ts-jest": "^27.0.3",
-    "typescript": "^4.3.4"
+    "typescript": "^4.3.4",
+    "yq": "^0.0.1"
   },
   "dependencies": {
     "@seasy/package": "^1.0.0",

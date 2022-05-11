@@ -1,5 +1,7 @@
 service: gateway
 
+useDotenv: true
+
 provider:
   name: aws
   runtime: nodejs14.x
@@ -8,16 +10,16 @@ provider:
   region: us-east-1
   apiGateway:
     shouldStartNameWithService: true
-  stage: local
+  stage: ${env:NODE_ENV}
   environment:
-    NODE_ENV: ${self:provider.stage}
-    REDIS_PORT: ${self:custom.Redis.port}
-    REDIS_HOST: ${self:custom.Redis.host}
-    REDIS_PASSWORD: ${self:custom.Redis.password}
-    COGNITO_AUTHORIZATION: ${self:custom.Cognito.authorization}
-    COGNITO_URL: ${self:custom.Cognito.url}
-    SHOPEE_URL: ${self:custom.Shopee.url}
-    MELI_URL: ${self:custom.Meli.url}
+    NODE_ENV: ${env:COGNITO_ARN}
+    COGNITO_AUTHORIZATION: ${env:COGNITO_AUTHORIZATION}
+    COGNITO_URL: ${env:COGNITO_URL}
+    REDIS_PORT: ${env:REDIS_PORT}
+    REDIS_HOST: ${env:REDIS_HOST}
+    REDIS_PASSWORD: ${env:REDIS_PASSWORD}
+    SHOPEE_SERVICE_URL: ${env:SHOPEE_SERVICE_URL}
+    MELI_SERVICE_URL: ${env:MELI_SERVICE_URL}
   
 functions:
   hello:
@@ -26,11 +28,10 @@ functions:
       - http:
           method: GET
           path: /hello
-          cors: true
           # authorizer:
-          #   arn: ${self:custom.Cognito.arn}
+          #   arn: ${env:COGNITO_ARN}
           #   scopes:
-          #     - ${self:custom.Cognito.scopes}
+          #     - ${env:COGNITO_SCOPES}
 
   searchproducts:
     handler: dist/src/handlers/index.searchproducts
@@ -42,11 +43,10 @@ functions:
             parameters:
               querystrings:
                 product: true
-          cors: true
           # authorizer:
-          #   arn: ${self:custom.Cognito.arn}
+          #   arn: ${env:COGNITO_ARN}
           #   scopes:
-          #     - ${self:custom.Cognito.scopes}
+          #     - ${env:COGNITO_SCOPES}
 
 custom:
   serverless-offline:
@@ -55,19 +55,6 @@ custom:
     lambdaPort: 3002
   bundle:
     linting: false
-  Cognito:
-    arn: ${file(env.${self:provider.stage}.yml):Cognito.arn}
-    scopes: ${file(env.${self:provider.stage}.yml):Cognito.scopes}
-    url: ${file(env.${self:provider.stage}.yml):Cognito.url}
-    authorization: ${file(env.${self:provider.stage}.yml):Cognito.authorization}
-  Redis:
-    port: ${file(env.${self:provider.stage}.yml):Redis.port}
-    host: ${file(env.${self:provider.stage}.yml):Redis.host}
-    password: ${file(env.${self:provider.stage}.yml):Redis.password}
-  Shopee:
-    url: ${file(env.${self:provider.stage}.yml):Shopee.url}
-  Meli:
-    url: ${file(env.${self:provider.stage}.yml):Meli.url}
 
 plugins:
   - serverless-offline

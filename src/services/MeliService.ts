@@ -5,7 +5,7 @@ import { IProduct } from '../dtos'
 
 export const MeliService = {
   async searchProducts (product: string, token: string): Promise<IProduct[]> {
-    const meliUrl = process.env.MELI_URL || ''
+    const meliUrl = process.env.MELI_SERVICE_URL || ''
 
     const headers = {
       Authorization: token

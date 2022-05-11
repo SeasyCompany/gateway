@@ -5,7 +5,7 @@ import { IProduct } from '../dtos'
 
 export const ShopeeService = {
   async searchProducts (product: string, token: string): Promise<IProduct[]> {
-    const shopeeUrl = process.env.SHOPEE_URL || ''
+    const shopeeUrl = process.env.SHOPEE_SERVICE_URL || ''
 
     const headers = {
       Authorization: token
